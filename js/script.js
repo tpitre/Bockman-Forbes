@@ -5,7 +5,7 @@
 
 
 	
-var tj = {
+var bf = {
 	
 	initFitText: function(){
 	
@@ -54,16 +54,13 @@ var tj = {
 		
 		var $workInfo = $('.work-info'),
 			$workDetail = $('#work-detail');
-		
-		//$workInfo.after('<div class="hide">Hide</div>');
-		
+			
 		$('.box').click(function(e){
 			$workDetail.animate({
-				top: 0,
-				opacity: 1,
-			}, 1000, 'easeInOutQuint');
+				top: 0
+			}, 1100, 'easeInOutQuint');
 			
-			$workInfo.delay(200).animate({
+			$workInfo.delay(300).animate({
 				right: 0
 			}, 700, 'easeInOutQuint');
 			
@@ -75,10 +72,9 @@ var tj = {
 			 	right: -700
 			 }, 700, 'easeInOutQuint');
 			 
-			 $workDetail.delay(100).animate({
-			 	top: -1000,
-			 	opacity: 0,
-			 }, 1000, 'easeInOutQuint');
+			 $workDetail.animate({
+			 	top: -850
+			 }, 1100, 'easeInOutQuint');
 			 
 			e.preventDefault();
 		});
@@ -142,10 +138,10 @@ $(function(){
 	
 	/* init all actions */
 	
-	tj.initFitText();
-	tj.initCustomScroll();
-	tj.viewWork();
-	tj.addPlaceHolder();
+	bf.initFitText();
+	bf.initCustomScroll();
+	bf.viewWork();
+	bf.addPlaceHolder();
 		
 });
 		
