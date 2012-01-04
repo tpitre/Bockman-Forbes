@@ -50,24 +50,9 @@ var bf = {
 	
 	},
 	
-	viewWork: function(){
+	showWorkDetail: function() {	
 		
-		var $workInfo = $('.work-info'),
-			$workDetail = $('#work-detail');
-			
-		$('.box').click(function(e){
-			$workDetail.animate({
-				top: 0
-			}, 1100, 'easeInOutQuint');
-			
-			$workInfo.delay(300).animate({
-				right: 0
-			}, 700, 'easeInOutQuint');
-			
-			e.preventDefault();
-		});
-		
-		$('.close').click(function(e){
+		$('.close').click(function(e){		 
 			 $workInfo.animate({
 			 	right: -700
 			 }, 700, 'easeInOutQuint');
@@ -75,13 +60,14 @@ var bf = {
 			 $workDetail.animate({
 			 	top: -850
 			 }, 1100, 'easeInOutQuint');
-			 
-			e.preventDefault();
+
+			 e.preventDefault();
 		});
 		
 		$('.hide').click(function(e) {
 			$(this).toggleClass('show');			
 			$('.work-content').slideToggle();			
+			
 			e.preventDefault();
 	    });
 	    
@@ -102,6 +88,32 @@ var bf = {
 	
 	},
 	
+	viewWork: function(){		
+			
+		$('.box').click(function(e){
+			$('#work-detail').load('slides.html', function(){	
+				
+				$workInfo = $('.work-info'),
+				$workDetail = $('#work-detail');
+						
+				$workDetail.animate({
+					top: 0
+				}, 1100, 'easeInOutQuint');
+				
+				$workInfo.delay(300).animate({
+					right: 0
+				}, 700, 'easeInOutQuint');				
+				
+				// fire off these functions once the page is returned
+				bf.initCustomScroll();
+				bf.showWorkDetail();		
+			});	
+			
+			e.preventDefault();
+		});
+	
+	},
+			
 	addPlaceHolder: function(){
 	
 		// add placeholder to browsers that don't recognize them
@@ -133,13 +145,13 @@ var bf = {
 	}
 	
 }
-	
+
+
 $(function(){
 	
-	/* init all actions */
+	/* init actions */
 	
-	bf.initFitText();
-	bf.initCustomScroll();
+	bf.initFitText();	
 	bf.viewWork();
 	bf.addPlaceHolder();
 		

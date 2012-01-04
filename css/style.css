@@ -325,16 +325,20 @@ p {
 	width: 30px;
 	height: 30px;
 	text-indent: -9999px;
-	background: url(../img/icon-close.png) no-repeat 0 0;
+	background: url(../img/sprite-30px.png) no-repeat 0 -35px;
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	transition: none;
 }
 
 #work-detail a.hide {
 	right: 40px;
-	background-image: url(../img/icon-hide.png);
+	background-position: 0 -70px;
 }
 
 #work-detail a.hide.show {
-	background-image: url(../img/icon-show.png);
+	background-position: 0 0;
 }
 
 #work-detail .work-slides {
