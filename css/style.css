@@ -202,6 +202,10 @@ p {
 	color: #118961;
 }
 
+#work li.box.not-active {
+	opacity: .6;
+}
+
 #work li.box .box-content {
 	padding-bottom: 11px;
 	opacity: 1;
@@ -292,7 +296,7 @@ p {
 #work-detail {
 	position: fixed;
 	width: 100%;
-	top: -850px;
+	top: -1100px;
 	opacity: 1;
 	left: 0;
 	z-index: 5;
