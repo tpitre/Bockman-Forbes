@@ -10,14 +10,15 @@ var bf = {
 	// cache static elements used on load
 	_e: {			
 		workDetail: 	$('#work-detail'),
-		boxh2: 			$('.box-content h2'),				
-		box:			$('.box')
+		figH2: 			$('.figcaption h2'),				
+		figure:			$('.figure'),
+		body:			$('body')
 	},
 	
 	initFitText: function(){
 	
-		// fit text to box
-		this._e.boxh2.fitText(1.4);
+		// fit text to figure
+		this._e.figH2.fitText(1.4);
 		
 	},
 	
@@ -25,7 +26,7 @@ var bf = {
 		
 		var $this = $(this);
 		
-		this._e.box.mouseover(function(){
+		this._e.figure.mouseover(function(){
 			$(this).removeClass('not-active').siblings().addClass('not-active');
 		}).mouseleave(function() {
 		    $(this).removeClass('not-active').siblings().removeClass('not-active');
@@ -35,19 +36,39 @@ var bf = {
 	viewWork: function(){		
 		
 		// map to the main object
-		var that = this;
-
-		this._e.box.click(function(event){
-			that._e.workDetail.load('slides.html', function(){
+		var that = this;			
+			
+		this._e.figure.click(function(event){
+			
+			$.address.value($(this).attr('href'));
+			
+			// grab the data attribute and append the '.html'
+			var data = $(this).data('fig') + '.html';						
+			
+			// remove the scrollbar by adding overflow: hidde to the container
+			// TODO: get current scrollTop position and save it to reposition
+			that._e.body.css('overflow', 'hidden');
+			
+			that._e.workDetail.load('includes/' + data, function(){
 				
 				var $workInfo = $('.work-info'),
+					$workInner = $('.work-inner'),
 					$workContent = $('.work-content'),
-					$close = $('.close'),
-					$hide = $('.hide'),
-					$slides = $('.work-slides');
+					$slides = $('.work-slides'),					
+					$close = $('<a>').attr({
+									class:	'close',
+									href:	''
+								}).text('x'),					
+					$hide = $('<a>').attr({
+									class:	'hide',
+									href:	''
+								}).text('Hide');
 				
 				// define functions to be initilalized after load
 				(function(){
+					
+					// add close and minify buttons
+					$workInner.prepend($hide).prepend($close);
 					
 					// mousewheel horizontal scroll and add jScrollPane
 					$slides.jScrollPane({
@@ -96,7 +117,8 @@ var bf = {
 						 }, 1100, 'easeInOutQuint', function(){
 						 	emptyWork();
 						 });
-			
+						 
+						 that._e.body.css('overflow', 'visible');
 						 event.preventDefault();
 					});
 					
@@ -134,7 +156,11 @@ var bf = {
 	
 			});	
 			
-			event.preventDefault();
+			//event.preventDefault();
+		});
+		
+		$.address.change(function(event) {
+			console.log(event.value);
 		});
 	
 	},
@@ -180,7 +206,7 @@ $(function(){
 	bf.hoverSelect();	
 	bf.viewWork();
 	bf.addPlaceHolder();
-		
+	
 });
 		
 	
