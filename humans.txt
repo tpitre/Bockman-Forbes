@@ -7,9 +7,14 @@
   Site: 
   Twitter: 
   Location: 
+  Web Designer & Developer: Terrance Pitre
+  Site: southleft.com
+  Twitter: tpitre
+  Location: NYC/NOLA
 
 /* THANKS */
   Names (& URL): 
+  Names (& URL): Brian Bockman & Jack Forbes for being such awesome clients
 
 /* SITE */
   Standards: HTML5, CSS3
@@ -41,3 +46,5 @@
                    :-:///////:-            -:/://         
                      -////:-                 --//:        
                        --                       -:        
+  Software: Espresso 2, Fireworks, Google Chrome Developer Tools
+      
