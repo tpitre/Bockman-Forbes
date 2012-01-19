@@ -7,18 +7,17 @@
 	
 var bf = {
 	
-	// cache static elements used on load
-	_e: {			
-		workDetail: 	$('#work-detail'),
-		figH2: 			$('.figcaption h2'),				
-		figure:			$('.figure'),
-		body:			$('body')
-	},
+	// cache static elements used on load				
+	workDetail: 	$('#work-detail'),
+	figH2: 			$('.figcaption h2'),				
+	figure:			$('.figure'),
+	html:			$('html'),
+	main:			$('#main'),
 	
 	initFitText: function(){
 	
 		// fit text to figure
-		this._e.figH2.fitText(1.4);
+		this.figH2.fitText(1.4);
 		
 	},
 	
@@ -26,7 +25,7 @@ var bf = {
 		
 		var $this = $(this);
 		
-		this._e.figure.mouseover(function(){
+		this.figure.mouseover(function(){
 			$(this).removeClass('not-active').siblings().addClass('not-active');
 		}).mouseleave(function() {
 		    $(this).removeClass('not-active').siblings().removeClass('not-active');
@@ -37,19 +36,9 @@ var bf = {
 		
 		// map to the main object
 		var that = this;			
-			
-		this._e.figure.click(function(event){
-			
-			$.address.value($(this).attr('href'));
-			
-			// grab the data attribute and append the '.html'
-			var data = $(this).data('fig') + '.html';						
-			
-			// remove the scrollbar by adding overflow: hidde to the container
-			// TODO: get current scrollTop position and save it to reposition
-			that._e.body.css('overflow', 'hidden');
-			
-			that._e.workDetail.load('includes/' + data, function(){
+						
+		var loadURL = function(data) {	
+			that.workDetail.load('includes/' + data  + '.html', function(){
 				
 				var $workInfo = $('.work-info'),
 					$workInner = $('.work-inner'),
@@ -95,30 +84,36 @@ var bf = {
 						}
 					});
 					
-					$slides.bind('mousewheel', function(e, delta){	
+					$slides.bind('mousewheel', function(event, delta){	
 						api.scrollByX(delta * 30);	
 						event.preventDefault();	
 					});
 					
 					// empty the portfolio container after its closed
 					var emptyWork = function(){
-					    that._e.workDetail.empty();
+					    that.workDetail.empty();
 					};
 					
-					$close.click(function(event){		 
+					$close.click(function(event){	
+						 						 	 
 						 $workInfo.animate({
 						 	right: -700
 						 }, 700, 'easeInOutQuint', function(){
 						 	emptyWork();
 						 });
 						 
-						 that._e.workDetail.animate({
+						 that.workDetail.animate({
 						 	top: -1100
 						 }, 1100, 'easeInOutQuint', function(){
 						 	emptyWork();
-						 });
+						 });	
 						 
-						 that._e.body.css('overflow', 'visible');
+						 // unlock scroll position
+						 var scrollPos = that.html.data('scroll-position');
+						 
+						 that.main.removeAttr('style');
+						 window.scrollTo(0, scrollPos);					 
+						 
 						 event.preventDefault();
 					});
 					
@@ -146,7 +141,7 @@ var bf = {
 					
 				})();							
 				
-				that._e.workDetail.animate({
+				that.workDetail.animate({
 					top: 0
 				}, 1100, 'easeInOutQuint');
 				
@@ -154,13 +149,28 @@ var bf = {
 					right: 0
 				}, 700, 'easeInOutQuint');				
 	
-			});	
+			});
 			
-			//event.preventDefault();
-		});
+		}
+							
+		// initialize address and pass in the event value
+	    $.address.init().change(function(event) {
+	    	var data = event.value.replace(/^\//, '');	    	
+	    	if (data) loadURL(data);	    	
+	    });
 		
-		$.address.change(function(event) {
-			console.log(event.value);
+		// trigger the loadURL function
+		this.figure.click(function(){	
+			
+			// get the data attribute and set the scroll position					
+			var data = $(this).data('fig'),
+				scrollPos = self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+								
+			that.main.css({'position' : 'fixed', 'top' : -scrollPos});
+			that.html.data('scroll-position', scrollPos);
+
+			loadURL(data);	
+					
 		});
 	
 	},
