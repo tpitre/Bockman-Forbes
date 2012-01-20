@@ -21,16 +21,16 @@ var bf = {
 		
 	},
 	
-	hoverSelect: function() {
-		
-		var $this = $(this);
-		
-		this.figure.mouseover(function(){
-			$(this).removeClass('not-active').siblings().addClass('not-active');
-		}).mouseleave(function() {
-		    $(this).removeClass('not-active').siblings().removeClass('not-active');
-		});	
-	},	
+//	hoverSelect: function() {
+//		
+//		var $this = $(this);
+//		
+//		this.figure.mouseover(function(){
+//			$(this).removeClass('not-active').siblings().addClass('not-active');
+//		}).mouseleave(function() {
+//		    $(this).removeClass('not-active').siblings().removeClass('not-active');
+//		});	
+//	},	
 	
 	viewWork: function(){		
 		
@@ -127,7 +127,7 @@ var bf = {
 				    $hide.toggle(
 				    	function(){
 				    		$workInfo.find('h1').animate({
-				    			marginTop: -21,
+				    			marginTop: -23,
 				    			marginBottom: -20
 				    		}, 400);
 				    	},
@@ -213,7 +213,7 @@ $(function(){
 	/* init actions */
 	
 	bf.initFitText();
-	bf.hoverSelect();	
+	//bf.hoverSelect();	
 	bf.viewWork();
 	bf.addPlaceHolder();
 	

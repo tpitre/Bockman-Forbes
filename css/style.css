@@ -51,7 +51,7 @@ h2, h3 {
 }
 h2 {
 	font-size: 1.5em; /* 24 / 16 */
-	margin: 1em 0 .3em;
+	margin: .5em 0 .3em;
 }
 p {
 	margin: 1em 0;
@@ -102,7 +102,7 @@ p {
 	margin: 0 auto;
 	max-width: 1285px;
 	min-width: 860px;
-	padding-left: 15px;
+	padding: 0 3%;
 	overflow: hidden;
 }
 
@@ -111,6 +111,7 @@ p {
 	float: left;
 	max-width: 460px;
 	min-width: 350px;
+	width: 35.79766%; /* 460 / 1285 */
 }
 
 #main-header small {
@@ -126,10 +127,14 @@ p {
 	font-weight: bold;
 }
 
+#main-nav {
+	float: right;
+	width: 228px;
+}
+
 #main-nav ul {
 	overflow: hidden;
 	margin: 12px 0 0 0;
-	float: right;
 }
 
 #main-nav li {
@@ -161,7 +166,7 @@ p {
 
 #main .intro {	
 	padding: 0;
-	margin: 0 1.1573%;
+	margin: 0 3%;
 }
 
 #main .intro h2 {
@@ -178,14 +183,13 @@ p {
 
 #work {
 	text-align: center;
-	width: 100%;
-	margin-left: 16px;
+	margin: 0 3%;
 }
 
 #work li.figure {
 	display: block;
 	float: left;
-	width: 23.142857%; /* 324 / 1300 */
+	width: 23.7%;
 	margin: 1% 1.714286% 1.285714% 0;
 	opacity: 1;
 	border-bottom: 1px solid #dbdbdb;
@@ -193,6 +197,10 @@ p {
 	-moz-transition: all .23s ease-in-out;
 	-ms-transition: all .23s ease-in-out;
 	transition: all .23s ease-in-out;
+}
+
+#work li.figure.end {
+	margin-right: 0;
 }
 
 #work li.figure:hover {
@@ -314,7 +322,7 @@ p {
 }
 
 #work-detail .work-inner {
-	margin: 76px auto 300px;
+	margin: 84px auto 300px;
 	width: 100%;
 	height: 741px;
 	position: relative;
@@ -362,11 +370,24 @@ p {
 
 #work-detail .work-slides td {
 	vertical-align: top;
+	padding: 0 1px 1px;
 }
 
 #work-detail .work-slides td img {
 	min-height: 580px;
 }
+
+#work-detail .work-slides td.filler {
+	vertical-align: middle;
+}
+
+#work-detail .work-slides td.filler img {
+	min-height: 100px;
+}
+
+/*#work-detail .work-inner .short {
+	border-bottom: 10px solid #818181;
+}*/
 
 #work-detail .work-info {
 	position: absolute;
@@ -378,6 +399,7 @@ p {
 
 #work-detail .work-info h1 {
 	margin: 18px 0 2px;
+	width: 78%;
 }
 
 #work-detail .work-info p {
