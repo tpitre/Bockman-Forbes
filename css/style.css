@@ -515,8 +515,10 @@ p {
 	z-index: 100;
 	margin-left: 2.7%;
 	bottom: 0;
-	padding-left: 30px;
-	color:  #000;	
+	color: black;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,.6);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,.6);
+	box-shadow: 0 0 10px rgba(0,0,0,.6);	
 }
 
 #contact .contact-info-inner {
