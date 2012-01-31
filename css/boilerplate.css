@@ -190,8 +190,8 @@ input:valid,
 textarea:valid { }
 input:invalid,
 textarea:invalid { background-color: #f0dddd }
-::-webkit-input-placeholder { color: #fff }
-:-moz-placeholder { color: #fff }
+::-webkit-input-placeholder { color: #999 }
+:-moz-placeholder { color: #999 }
 table {
    border-collapse: collapse;
    border-spacing: 0;

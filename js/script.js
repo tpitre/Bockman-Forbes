@@ -13,6 +13,7 @@ var bf = {
 	figure:			$('.figure'),
 	html:			$('html'),
 	main:			$('#main'),
+	bg:				$('.bg'),
 	
 	initFitText: function(){
 	
@@ -20,37 +21,29 @@ var bf = {
 		this.figH2.fitText(1.4);
 		
 	},
-	
-//	hoverSelect: function() {
-//		
-//		var $this = $(this);
-//		
-//		this.figure.mouseover(function(){
-//			$(this).removeClass('not-active').siblings().addClass('not-active');
-//		}).mouseleave(function() {
-//		    $(this).removeClass('not-active').siblings().removeClass('not-active');
-//		});	
-//	},	
-	
+		
 	viewWork: function(){		
 		
 		// map to the main object
 		var that = this;			
-						
+		
+		// load the external files	
 		var loadURL = function(data) {	
 			that.workDetail.load('includes/' + data  + '.html', function(){
 				
+				// cache those element selectors
 				var $workInfo = $('.work-info'),
 					$workInner = $('.work-inner'),
 					$workContent = $('.work-content'),
-					$slides = $('.work-slides'),					
+					$inner = $('#profile .inner, #contact .inner'),
+					$slides = $('.work-slides'),
 					$close = $('<a>').attr({
 									class:	'close',
-									href:	''
+									href:	'#/close'
 								}).text('x'),					
 					$hide = $('<a>').attr({
 									class:	'hide',
-									href:	''
+									href:	'#/hide'
 								}).text('Hide');
 				
 				// define functions to be initilalized after load
@@ -58,13 +51,17 @@ var bf = {
 					
 					// add close and minify buttons
 					$workInner.prepend($hide).prepend($close);
+					$inner.prepend($close);
 					
 					// mousewheel horizontal scroll and add jScrollPane
 					$slides.jScrollPane({
 						showArrows: true,
 						autoReinitialise: true
 					});
-							
+					
+					// if its the contact setion, init the map
+					if (data === 'contact') that.initMap();
+					
 					var api = $slides.data('jsp'),
 						throttleTimeout;
 									  
@@ -75,12 +72,12 @@ var bf = {
 							// to throttle it to fire a maximum of once every 50 milliseconds...
 							if (!throttleTimeout) {
 								throttleTimeout = setTimeout(function(){
-									api.reinitialise();
+									if (api) api.reinitialise();
 									throttleTimeout = null;
 								},50);
 							}
 						} else {
-							api.reinitialise();
+							if (api) api.reinitialise();
 						}
 					});
 					
@@ -94,28 +91,36 @@ var bf = {
 					    that.workDetail.empty();
 					};
 					
-					$close.click(function(event){	
-						 						 	 
-						 $workInfo.animate({
-						 	right: -700
-						 }, 700, 'easeInOutQuint', function(){
-						 	emptyWork();
-						 });
+					// close the work section
+					$('.close, .bg').click(function(event){	
 						 
-						 that.workDetail.animate({
-						 	top: -1100
-						 }, 1100, 'easeInOutQuint', function(){
-						 	emptyWork();
-						 });	
+						 // suck that work section back in
+						 var retractWork = (function() {					 	 
+							 $workInfo.animate({
+							 	right: -700
+							 }, 700, 'easeInOutQuint', function(){
+							 	emptyWork();
+							 });
+							 
+							 that.workDetail.animate({
+							 	top: -700
+							 }, 1100, 'easeInOutQuint', function(){
+							 	emptyWork();
+							 });
+						})();	
 						 
-						 // unlock scroll position
-						 var scrollPos = that.html.data('scroll-position');
-						 
-						 that.main.removeAttr('style');
-						 window.scrollTo(0, scrollPos);					 
-						 
-						 event.preventDefault();
-					});
+						// unlock scroll position
+						var scrollPos = that.html.data('scroll-position');
+						
+						that.main.removeAttr('style');
+						that.bg.fadeOut();
+						window.scrollTo(0, scrollPos);					 
+						window.location.hash = '';
+						
+						$('#main-nav li a').removeClass('selected');
+												 
+						event.preventDefault();
+					});					
 					
 					$hide.click(function(event){
 						$(this).toggleClass('show');			
@@ -124,6 +129,7 @@ var bf = {
 						event.preventDefault();
 				    });
 				    
+				    // toggle the work info section
 				    $hide.toggle(
 				    	function(){
 				    		$workInfo.find('h1').animate({
@@ -141,40 +147,76 @@ var bf = {
 					
 				})();							
 				
-				that.workDetail.animate({
-					top: 0
-				}, 1100, 'easeInOutQuint');
-				
-				$workInfo.delay(300).animate({
-					right: 0
-				}, 700, 'easeInOutQuint');				
+				// animate the work section down
+				var showWork = (function() {
+					that.workDetail.animate({
+						top: 0
+					}, 1100, 'easeInOutQuint');
+					
+					$workInfo.delay(300).animate({
+						right: 0
+					}, 700, 'easeInOutQuint');
+				})();				
 	
 			});
 			
 		}
+		
+		// do some stuff in the background for each gallery load
+		var bgActions = function() {
+			var scrollPos = self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+			that.bg.fadeIn();					
+			that.main.css({'position' : 'fixed', 'top' : -scrollPos});
+			that.html.data('scroll-position', scrollPos);
+		};
 							
 		// initialize address and pass in the event value
 	    $.address.init().change(function(event) {
 	    	var data = event.value.replace(/^\//, '');	    	
-	    	if (data) loadURL(data);	    	
+	    	
+	    	// if a gallery is already displayed, make sure to play
+	    	// that animation out before displaying the next one
+	    	if (data) {	    	
+			    if ($('#work-detail').length > 0) {	
+			    	$('.work-info').animate({
+			    		right: -700
+			    	}, 700, 'easeInOutQuint', function(){
+			    		that.workDetail.empty();
+			    	});
+			    	
+			    	that.workDetail.animate({
+			    		top: -700
+			    	}, 1100, 'easeInOutQuint', function(){
+			    		that.workDetail.empty();
+			    		loadURL(data);
+			    		bgActions();
+			    	});			    	
+			    }
+			    else {
+		    		loadURL(data);
+		    		bgActions();	    	
+		    	}
+		    }
 	    });
-		
-		// trigger the loadURL function
-		this.figure.click(function(){	
-			
-			// get the data attribute and set the scroll position					
-			var data = $(this).data('fig'),
-				scrollPos = self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-								
-			that.main.css({'position' : 'fixed', 'top' : -scrollPos});
-			that.html.data('scroll-position', scrollPos);
-
-			loadURL(data);	
-					
-		});
-	
+	    	
 	},
-			
+	
+	hightlightNav: function(){
+	
+		var path = location.hash.substring(2),
+			$navLink = $('#main-nav li a');
+		
+		if (path) {
+			$('#main-nav li a[href$="' + path + '"]').attr('class', 'selected');
+		}
+		
+		$navLink.click(function(){
+			$navLink.removeClass('selected');
+			$(this).addClass('selected');
+		});
+		
+	},
+				
 	addPlaceHolder: function(){
 	
 		// add placeholder to browsers that don't recognize them
@@ -203,56 +245,38 @@ var bf = {
 			});	
 		}
 	
+	},
+	
+	initMap: function(){
+		
+		// set up the map for the contact section
+		var centerLng = new google.maps.LatLng(29.927667,-90.089398);
+	    var myOptions = {
+	      zoom: 15,
+	      center: centerLng,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    };
+	    var map = new google.maps.Map(document.getElementById('map'),
+	        myOptions);
+	      
+	    var markerLng = new google.maps.LatLng(29.927667,-90.080348);
+	    var marker = new google.maps.Marker({
+	      position: markerLng, 
+	      map: map, 
+	      title: "Bockman + Forbes Design"
+		});
+		
 	}
 	
 }
 
-
 $(function(){
 	
-	/* init actions */
-	
+	// init the functions	
 	bf.initFitText();
-	//bf.hoverSelect();	
 	bf.viewWork();
-	bf.addPlaceHolder();
+	bf.hightlightNav();
+	bf.addPlaceHolder();		
 	
 });
 		
-	
-	
-		
-
-
-
-
-
-	// activate slide show
-//	$('.work-slides ul').after('<div class="slide-nav">').cycle({ 
-//	    fx:     'fade',
-//	    fit:	1,
-//	    speed:  900, 
-//	    timeout: 0,
-//	    cleartypeNoBg: true,
-//	    easing:		'easeInOutQuint',
-//        next:   	'.next', 
-//        prev:   	'.prev',
-//	    pager:		'.slide-nav',
-        // callback fn that creates a bullet to use as pager anchor 
-//        pagerAnchorBuilder: function(idx, slide) { 
-//            return '<a href="#">&bull;</a>'; 
-//        } 
-//	});
-
- //basic modal open/close
-//$('.work-modal').click(function(event){
-//	 $('.modal').fadeIn();
-//	 $('.modal-bg').fadeIn();
-//	 event.preventDefault();
-//});
-//
-//$('.modal .close, .modal-bg').click(function(event) {
-//	$('.modal').fadeOut();
-//	$('.modal-bg').fadeOut();
-//	event.preventDefault();
-//})
