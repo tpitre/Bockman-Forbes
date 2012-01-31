@@ -49,6 +49,7 @@ var bf = {
 				// define functions to be initilalized after load
 				(function(){
 					
+					$('.work-info h1').fitText(1);
 					// add close and minify buttons
 					$workInner.prepend($hide).prepend($close);
 					$inner.prepend($close);
