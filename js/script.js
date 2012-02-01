@@ -15,6 +15,24 @@ var bf = {
 	main:			$('#main'),
 	bg:				$('.bg'),
 	
+	introAnim: function(){
+		
+		$(window).bind('resize', function(){
+			if (document.documentElement.clientWidth < 930) {
+				$('.figure').removeClass('end');
+				$('.figure:nth-child(3n)').addClass('end');
+			}
+		});
+		
+		var x = 0;
+		
+//		$('.figure').each(function(){
+//			$(this).delay(x).css('visibility','visible').fadeTo('slow', 1000);			
+//			x += 300;
+//		});
+	
+	},
+	
 	initFitText: function(){
 	
 		// fit text to figure
@@ -114,12 +132,11 @@ var bf = {
 						var scrollPos = that.html.data('scroll-position');
 						
 						that.main.removeAttr('style');
-						that.bg.fadeOut();
-						window.scrollTo(0, scrollPos);					 
-						window.location.hash = '';
-						
+						that.bg.fadeOut();							
+						window.location.hash = '';						
 						$('#main-nav li a').removeClass('selected');
-												 
+						window.scrollTo(0, scrollPos);
+										 
 						event.preventDefault();
 					});					
 					
@@ -165,7 +182,7 @@ var bf = {
 		
 		// do some stuff in the background for each gallery load
 		var bgActions = function() {
-			var scrollPos = self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+			var scrollPos = self.pageYOffset || document.documentElement.scrollTop;
 			that.bg.fadeIn();					
 			that.main.css({'position' : 'fixed', 'top' : -scrollPos});
 			that.html.data('scroll-position', scrollPos);
@@ -273,7 +290,8 @@ var bf = {
 
 $(function(){
 	
-	// init the functions	
+	// init the functions
+	bf.introAnim()
 	bf.initFitText();
 	bf.viewWork();
 	bf.hightlightNav();
