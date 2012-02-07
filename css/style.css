@@ -79,7 +79,6 @@ p {
 	width: 100%;
 	height: 100%;
 	max-width: 1300px;
-	min-width: 860px;
 }
 
 #main-header {
@@ -101,7 +100,6 @@ p {
 .inner {
 	margin: 0 auto;
 	max-width: 1285px;
-	min-width: 860px;
 	padding: 0 3%;
 	overflow: hidden;
 	position: relative;
@@ -116,7 +114,7 @@ p {
 	float: left;
 	margin-left: 2.85%;
 	max-width: 460px;
-	min-width: 350px;
+	min-width: 250px;
 	width: 29%;
 }
 
@@ -152,7 +150,7 @@ p {
 	letter-spacing: -1px;
 }
 
-#main-nav li.contact-link {
+#main-nav li.press-link {
 	margin-right: 0;
 }
 
@@ -170,7 +168,7 @@ p {
 }
 
 #main {
-	margin: 69px 0 20px;
+	margin: 69px 0 0;
 	max-width: 1300px;
 }
 
@@ -198,14 +196,14 @@ p {
 
 #work ul {
 	overflow: hidden;
-	padding-left: 5px;
+	padding-left: 4px;
 }
 
 #work li.figure {
 	display: block;
 	float: left;
 	width: 23.7%;
-	margin: 1% 1.714286% 1.285714% 0;
+	margin: 1% .651% 1.285714%;
 	opacity: 1;
 	border-bottom: 1px solid #eee;
 	-webkit-transition: all .23s ease-in-out;
@@ -214,9 +212,9 @@ p {
 	transition: all .23s ease-in-out;
 }
 
-#work li.figure.end {
+/*#work li.figure.end {
 	margin-right: 0;
-}
+}*/
 
 #work li.figure:hover {
 	cursor: pointer;
@@ -318,9 +316,9 @@ p {
 --------------------------------------------- */
 
 #work-detail {
-	position: fixed;
+	position: absolute;
 	width: 100%;
-	top: -700px;
+	top: -1100px;
 	opacity: 1;
 	left: 0;
 	z-index: 5;
@@ -440,11 +438,12 @@ p {
 
 /* @end Work Detail */
 
-/* @group Profile + Contact
+/* @group Profile, Contact, + Press
 --------------------------------------------- */
 
 #profile,
-#contact {	
+#contact,
+#press {	
 	background-color: #26262c;
 	background-color: rgba(38,38,44,.9);
 	color: #fff;
@@ -456,7 +455,7 @@ p {
 }
 
 #profile a.close,
-#contact a.close {
+#press a.close {
 	background-position: 0 -105px;
 	top: 2px;
 }
@@ -557,7 +556,29 @@ p {
 	font-weight: 600;
 }
 
-/* @end Profile */
+#press .press-item ul {
+	overflow: hidden;
+}
+
+#press .press-item ul li {
+	float: left;
+	margin: 1%;
+	width: 12.4%;
+	height: 270px;
+}
+
+#press .press-item h2 {
+	font-size: 90%;
+	margin: 4px 0 0;
+	line-height: 1.3;
+}
+
+#press .press-item small {
+	display: block;
+	margin-bottom: 4px;
+}
+
+/* @end Profile, Contact, + Press */
 
 #main-footer {
 	margin: 0;
@@ -577,32 +598,236 @@ p {
 --------------------------------------------- */
 
 @media screen and (max-width: 1024px) {
-	body {
-		background-color: red;
+	#main-header {
+		padding-top: 0;
 	}
 	#work-detail .work-slides {
-		height: 470px;
+		height: 500px;
 	}
 	#work-detail .work-slides td img {
-		max-height: 459px;
+		height: 488px;
 		min-height: 380px;
+		margin-bottom: 0;
 	}
 	#work-detail .work-info .work-content {
 		font-size: 80%;
 	}
+	#profile .inner {
+		font-size: 80%;
+	}
+	#press .press-item ul li {
+		height: 220px;
+		font-size: 87%;
+	}
 }
 
 @media screen and (max-width: 930px) {
-	body {
-		background-color: blue;
+	#main .intro h2 {
+		font-size: 1.2em;
+		line-height: 1.6;
 	}
 	#work li.figure {
-		display: block;
-		float: left;
-		width: 32.2%;
+		width: 30.7%;
+		margin: 1% 1.3% 3.6%;
+	}
+	#contact .contact-info {
+		font-size: 92%;
+	}
+	#press .press-item ul li {
+		height: 200px;
 	}
 }
 
+@media screen and (max-width: 720px) {	
+	#work-detail .work-inner a.close {
+		top: 6px;
+		background-color: #fff;
+		padding: 2px;
+		background-position: center -32px;
+		-webkit-border-radius: 99px;
+		-moz-border-radius: 99px;
+		border-radius: 99px;
+	}
+	#main {
+		margin-top: 52px;
+	}
+	#main[style] {
+		position: static !important; 
+	}
+	#main-nav ul {
+		margin: 15px 0 0 0;
+	}
+	#main-nav li {
+		margin-right: 12px;
+		width: 60px;
+		font-size: 11px;
+	}
+	#main .intro h2 {
+		padding-bottom: 14px;
+		margin-bottom: 20px;
+		font-size: .8em;
+		line-height: 1.5;
+	}
+	#work ul {
+		padding: 0;
+	}
+	#work li.figure {
+		width: 47.5%;
+		margin: 1% 0 3.6% 5%;
+	}
+	#work li.figure:nth-child(2n+1) {
+		margin-left: 0;
+	}
+	#contact {
+		margin-left: -80px;
+	}
+	#contact .inner a.close {
+		top: 40px;
+	}
+	#contact .contact-info {
+		font-size: 92%;
+		width: 40%;
+		margin-left: 90px;
+	}
+	#profile {
+		padding-top: 54px;
+	}
+	#profile .profile-desc {
+		width: 73%;
+		margin-right: 4%;
+		font-size: 90%;
+	}
+	#profile a.close {
+		top: 2px;
+	}
+	#profile .summary {
+		margin: 40px 0 0;
+	}
+	#profile .summary ul {
+		display: none;
+	}
+	#profile .profile-jack {
+		margin-top: 15px;
+	}
+	#work-detail .work-slides {
+		height: 360px;
+	}
+	#work-detail .work-slides td img {
+		height: 348px;
+		min-height: 300px;
+	}
+	#work-detail .work-info,
+	#work-detail .work-inner a.hide {
+		display: none;
+	}
+	#press {
+		padding-bottom: 0;
+	}
+	#press .press-item ul li {
+		width: 18%;
+		height: 240px;
+	}
+}
+
+@media screen and (max-width: 520px) and (max-height: 340px) {
+	#main-header h1 {
+		min-width: 220px;
+	}
+	#work-detail .work-slides {
+		height: 210px;
+	}
+	#work-detail .work-slides td img {
+		height: 198px;
+		min-height: 150px;
+	}
+	#press .press-item ul li {
+		width: 23.4%;
+		height: 210px;
+	}
+}
+
+@media screen and (max-width: 490px) and (min-height: 340px) {
+	#work-detail a.close {
+		margin-top: 32px;
+	}
+	#main-header h1 {
+		margin: 0 auto;
+		float: none;
+		width: 95%;
+		text-align: center;
+	}
+	#main-nav {
+		float: none;
+		margin: 0 auto 10px;
+		width: 96%;
+	}
+	#main-nav ul {
+		margin: 0;
+		text-align: center;
+	}
+	#main-nav li {
+		text-align: center;	
+		width: 30%;
+		display: inline;
+		font-size: 1em;
+		float: none;
+	}
+	#main-nav li a {
+		text-align: center;
+		display: inline;
+	}
+	#main {
+		margin-top: 86px;
+	}
+	#work li.figure {
+		width: 100%;
+		margin: 1% 1.3% 6.6%;
+	}
+	#contact {
+		margin: 0;
+		background-color: #fff;
+	}
+	#contact .inner a.close {
+		top: 74px;
+		right: 16px;
+		background-position: 0 -105px;
+		z-index: 1000;
+	}
+	#contact .contact-info {
+		font-size: 92%;
+		width: 95%;
+		margin-left: 0;
+	}
+	#contact #map {
+		display: none;
+	}
+	#profile,
+	#press {
+		padding-top: 86px;
+	}
+	#profile .profile-desc {
+		width: 100%;
+		margin-right: 0%;
+		font-size: 85%;
+		text-align: justify;
+	}
+	#profile .summary {
+		display: none;
+	}
+	#profile .inner a.close,
+	#press .inner a.close {
+		top: -30px;
+	}
+	#press .press-item ul li {
+		width: 46.5%;
+		margin-right: 0;
+		margin-left: 7%;	
+		height: 290px;
+	}
+	#press .press-item ul li:nth-child(2n+1) {
+		margin-left: 0;
+	}
+}
 
 /* @end */
 

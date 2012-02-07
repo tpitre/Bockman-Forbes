@@ -17,12 +17,12 @@ var bf = {
 	
 	introAnim: function(){
 		
-		$(window).bind('resize', function(){
-			if (document.documentElement.clientWidth < 930) {
-				$('.figure').removeClass('end');
-				$('.figure:nth-child(3n)').addClass('end');
-			}
-		});
+		//$(window).bind('resize', function(){
+//			if (document.documentElement.clientWidth < 930) {
+//				$('.figure').removeClass('end');
+//				$('.figure:nth-child(3n)').addClass('end');
+//			}
+		//});
 		
 		var x = 0;
 		
@@ -53,7 +53,7 @@ var bf = {
 				var $workInfo = $('.work-info'),
 					$workInner = $('.work-inner'),
 					$workContent = $('.work-content'),
-					$inner = $('#profile .inner, #contact .inner'),
+					$inner = $('#profile .inner, #contact .inner, #press .inner'),
 					$slides = $('.work-slides'),
 					$close = $('<a>').attr({
 									class:	'close',
@@ -122,8 +122,8 @@ var bf = {
 							 });
 							 
 							 that.workDetail.animate({
-							 	top: -700
-							 }, 1100, 'easeInOutQuint', function(){
+							 	top: -1100
+							 }, 1000, 'easeInOutQuint', function(){
 							 	emptyWork();
 							 });
 						})();	
@@ -169,12 +169,16 @@ var bf = {
 				var showWork = (function() {
 					that.workDetail.animate({
 						top: 0
-					}, 1100, 'easeInOutQuint');
+					}, 1000, 'easeInOutQuint');
 					
 					$workInfo.delay(300).animate({
 						right: 0
 					}, 700, 'easeInOutQuint');
-				})();				
+				})();
+				
+				if (document.documentElement.clientWidth < 720) {
+					$('html, body').animate({ scrollTop: 0 }, 'fast');
+				}			
 	
 			});
 			
@@ -186,6 +190,7 @@ var bf = {
 			that.bg.fadeIn();					
 			that.main.css({'position' : 'fixed', 'top' : -scrollPos});
 			that.html.data('scroll-position', scrollPos);
+			console.log('here?');
 		};
 							
 		// initialize address and pass in the event value
@@ -195,7 +200,7 @@ var bf = {
 	    	// if a gallery is already displayed, make sure to play
 	    	// that animation out before displaying the next one
 	    	if (data) {	    	
-			    if ($('#work-detail').length > 0) {	
+			    if ($('#work-detail').length > 0) {				    	
 			    	$('.work-info').animate({
 			    		right: -700
 			    	}, 700, 'easeInOutQuint', function(){
@@ -210,7 +215,7 @@ var bf = {
 			    		bgActions();
 			    	});			    	
 			    }
-			    else {
+			    else {			    	
 		    		loadURL(data);
 		    		bgActions();	    	
 		    	}
