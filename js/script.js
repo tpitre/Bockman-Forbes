@@ -55,14 +55,8 @@ var bf = {
 					$workContent = $('.work-content'),
 					$inner = $('#profile .inner, #contact .inner, #press .inner'),
 					$slides = $('.work-slides'),
-					$close = $('<a>').attr({
-									class:	'close',
-									href:	'#/close'
-								}).text('x'),					
-					$hide = $('<a>').attr({
-									class:	'hide',
-									href:	'#/hide'
-								}).text('Hide');
+					$close = $('<a>').attr({'class': 'close', href: '#/close'}).text('x'),					
+					$hide = $('<a>').attr({'class': 'hide', href: '#/hide'}).text('Hide');
 				
 				// define functions to be initilalized after load
 				(function(){
@@ -190,7 +184,7 @@ var bf = {
 			that.bg.fadeIn();					
 			that.main.css({'position' : 'fixed', 'top' : -scrollPos});
 			that.html.data('scroll-position', scrollPos);
-			console.log('here?');
+			//console.log('here?');
 		};
 							
 		// initialize address and pass in the event value

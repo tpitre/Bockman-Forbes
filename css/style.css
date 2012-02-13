@@ -97,6 +97,10 @@ p {
 	box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
+.oldie #main-header {
+	border-bottom: 1px solid #eee;
+}
+
 .inner {
 	margin: 0 auto;
 	max-width: 1285px;
@@ -316,7 +320,7 @@ p {
 --------------------------------------------- */
 
 #work-detail {
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	top: -1100px;
 	opacity: 1;
@@ -404,12 +408,9 @@ p {
 	min-height: 100px;
 }
 
-/*#work-detail .work-inner .short {
-	border-bottom: 10px solid #818181;
-}*/
-
 #work-detail .work-info {
 	position: absolute;
+	background-color: #fff;
 	background-color: rgba(255,255,255,.94);
 	width: 28%; /* 364 / 1300 */
 	padding: 2.4em 1.53846% 1.2em; /* 20 / 1300 */
@@ -622,6 +623,9 @@ p {
 }
 
 @media screen and (max-width: 930px) {
+	#work-detail {
+		position: absolute;
+	}
 	#main .intro h2 {
 		font-size: 1.2em;
 		line-height: 1.6;
